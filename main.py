@@ -134,11 +134,15 @@ def main():
     global show_start_time, game_state
     pygame.init()
     screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-    pygame.display.set_caption("Jogo da Memória - Nyquist")
+    pygame.display.set_caption("Jogo da Memória - Trincas")
     clock = pygame.time.Clock()
 
     state = "menu"
     images = create_image_list()
+
+    # Carrega tela de instruções
+    tutorial_img = pygame.image.load("imagens/tutorial.png").convert_alpha()
+    tutorial_img = pygame.transform.scale(tutorial_img, (WINDOW_WIDTH, WINDOW_HEIGHT))
 
     running = True
     while running:
@@ -152,14 +156,18 @@ def main():
             if state == "menu":
                 if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if play_btn.collidepoint(mouse_pos):
-                        create_board(images)
-                        for card in Card.instances:
-                            card.start_fade_in()
-                        show_start_time = pygame.time.get_ticks()
-                        game_state = "showing"
-                        state = "game"
+                        state = "tutorial"
                     elif quit_btn.collidepoint(mouse_pos):
                         running = False
+
+            elif state == "tutorial":
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                    create_board(images)
+                    for card in Card.instances:
+                        card.start_fade_in()
+                    show_start_time = pygame.time.get_ticks()
+                    game_state = "showing"
+                    state = "game"
 
             elif state == "game":
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -167,8 +175,12 @@ def main():
                 elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     handle_click(event.pos)
 
+        # --- DESENHO ---
         if state == "menu":
             play_btn, quit_btn = draw_menu(screen, mouse_pos)
+
+        elif state == "tutorial":
+            screen.blit(tutorial_img, (0, 0))
 
         elif state == "game":
             font = pygame.font.Font("OpenSans-Light.ttf", 36)
@@ -193,6 +205,7 @@ def main():
 
     pygame.quit()
     sys.exit()
+
 
 if __name__ == "__main__":
     main()
