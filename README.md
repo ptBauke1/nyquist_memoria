@@ -3,7 +3,9 @@
 pip install pygame
 ```
 
-✨ COMO JOGAR: ✨
+---
+
+# ✨ COMO JOGAR: ✨
 
 O objetivo é encontrar trincas que representam o mesmo sinal em três formas diferentes:
 
@@ -16,8 +18,9 @@ O objetivo é encontrar trincas que representam o mesmo sinal em três formas di
 -Sinal Reconstruído – (linha verde)
   O sinal reconstruído usando interpolação Sinc.
 
+---
 
-Regras:
+# Regras:
 
 Clique em uma carta de cada linha para tentar formar a trinca correta.
 
