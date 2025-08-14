@@ -1,4 +1,5 @@
-#Instale o Pygame
-´´´
+# Instale o Pygame
+```
 pip install pygame
-´´´
+```
+
